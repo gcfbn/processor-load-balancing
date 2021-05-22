@@ -13,6 +13,4 @@ public class ProcessSender {
         this.duration = duration;
         this.firstChoiceCpu = firstChoiceCpu;
     }
-
-
 }
