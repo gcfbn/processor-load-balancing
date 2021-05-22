@@ -17,10 +17,10 @@ public class ProcessExecuter {
 
                 currentProcess.setTimeLeft(currentProcess.getTimeLeft() - 1);
 
-                if (currentProcess.getTimeLeft() == 0)
+                if (currentProcess.getTimeLeft() == 0) {
                     cpu.getProcesses().remove(currentProcess);
-
-                else i++;
+                    cpu.setLoad(cpu.getLoad() - currentProcess.getLoad());
+                } else i++;
             }
         }
     }
