@@ -13,4 +13,24 @@ public class ProcessSender {
         this.duration = duration;
         this.firstChoiceCpu = firstChoiceCpu;
     }
+
+    public Process sendProcess() {
+        return new Process(load, duration, firstChoiceCpu);
+    }
+
+    public int getFrequency() {
+        return frequency;
+    }
+
+    public int getLoad() {
+        return load;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public CPU getFirstChoiceCpu() {
+        return firstChoiceCpu;
+    }
 }

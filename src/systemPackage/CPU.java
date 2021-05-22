@@ -11,4 +11,28 @@ public class CPU {
     public CPU(int simulationLength) {
         loadsInTime = new double[simulationLength];
     }
+
+    public void clearLoad() {
+        load = 0;
+    }
+
+    public void clearProcesses() {
+        processes.clear();
+    }
+
+    public ArrayList<Process> getProcesses() {
+        return processes;
+    }
+
+    public int getLoad() {
+        return load;
+    }
+
+    public void setLoad(int load) {
+        this.load = load;
+    }
+
+    public double[] getLoadsInTime() {
+        return loadsInTime;
+    }
 }

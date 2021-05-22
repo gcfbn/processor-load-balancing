@@ -11,4 +11,24 @@ public class Process {
         this.currentCPU = currentCPU;
         this.timeLeft = duration;
     }
+
+    public int getLoad() {
+        return load;
+    }
+
+    public CPU getCurrentCPU() {
+        return currentCPU;
+    }
+
+    public void setCurrentCPU(CPU currentCPU) {
+        this.currentCPU = currentCPU;
+    }
+
+    public int getTimeLeft() {
+        return timeLeft;
+    }
+
+    public void setTimeLeft(int timeLeft) {
+        this.timeLeft = timeLeft;
+    }
 }
