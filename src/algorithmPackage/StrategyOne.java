@@ -19,7 +19,7 @@ public class StrategyOne implements Algorithm {
     private int questions = 0;
     private int migrations = 0;
 
-    Random randomGenerator = new Random();
+    private final Random randomGenerator = new Random();
 
     @Override
     public Results executeAlgorithm(ArrayList<CPU> cpus, ArrayList<ProcessSender> processes, int maxTime) {
