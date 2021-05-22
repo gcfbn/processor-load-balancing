@@ -1,5 +1,7 @@
 package systemPackage;
 
+import statsPackage.RootMeanSquare;
+
 import java.util.ArrayList;
 
 public class CPU {
@@ -34,5 +36,9 @@ public class CPU {
 
     public double[] getLoadsInTime() {
         return loadsInTime;
+    }
+
+    public double getAverageLoad() {
+        return RootMeanSquare.calculate(loadsInTime);
     }
 }
