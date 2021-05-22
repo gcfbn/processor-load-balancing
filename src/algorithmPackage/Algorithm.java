@@ -8,5 +8,5 @@ import java.util.ArrayList;
 
 public interface Algorithm {
 
-    Results executeAlgorithm(ArrayList<CPU> cpus, ArrayList<ProcessSender> processes, int time);
+    Results executeAlgorithm(ArrayList<CPU> cpus, ArrayList<ProcessSender> processes, int maxTime);
 }
