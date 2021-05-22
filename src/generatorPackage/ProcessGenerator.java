@@ -1,3 +1,5 @@
+package generatorPackage;
+
 import systemPackage.CPU;
 import systemPackage.ProcessSender;
 
