@@ -2,6 +2,8 @@ package testPackage;
 
 import algorithmPackage.Algorithm;
 import algorithmPackage.StrategyOne;
+import algorithmPackage.StrategyThree;
+import algorithmPackage.StrategyTwo;
 import generatorPackage.ProcessGenerator;
 import resultsPackage.Results;
 import systemPackage.CPU;
@@ -30,10 +32,42 @@ public class TestClass {
         algorithm = new StrategyOne();
         results = algorithm.executeAlgorithm(cpus, senders, MAX_TIME);
 
-        System.out.println("Average load: " + results.getAverageLoad());
-        System.out.println("Standard deviation: " + results.getStandardDeviation());
-        System.out.println("Migrations: " + results.getMigrations());
-        System.out.println("Questions: " + results.getQuestions());
-    }
+        System.out.println("Strategia 1:");
+        System.out.println("Średnie obciążenie: " + results.getAverageLoad());
+        System.out.println("Odchylenie standardowe: " + results.getStandardDeviation());
+        System.out.println("Migracje: " + results.getMigrations());
+        System.out.println("Zapytania: " + results.getQuestions());
 
+        System.out.println();
+
+        algorithm = new StrategyTwo();
+        for (CPU cpu : cpus){
+            cpu.clearLoad();
+            cpu.clearProcesses();
+        }
+
+        results = algorithm.executeAlgorithm(cpus, senders, MAX_TIME);
+
+        System.out.println("Strategia 2:");
+        System.out.println("Średnie obciążenie: " + results.getAverageLoad());
+        System.out.println("Odchylenie standardowe: " + results.getStandardDeviation());
+        System.out.println("Migracje: " + results.getMigrations());
+        System.out.println("Zapytania: " + results.getQuestions());
+
+        System.out.println();
+
+        algorithm = new StrategyThree();
+        for (CPU cpu : cpus){
+            cpu.clearLoad();
+            cpu.clearProcesses();
+        }
+
+        results = algorithm.executeAlgorithm(cpus, senders, MAX_TIME);
+
+        System.out.println("Strategia 3:");
+        System.out.println("Średnie obciążenie: " + results.getAverageLoad());
+        System.out.println("Odchylenie standardowe: " + results.getStandardDeviation());
+        System.out.println("Migracje: " + results.getMigrations());
+        System.out.println("Zapytania: " + results.getQuestions());
+    }
 }
