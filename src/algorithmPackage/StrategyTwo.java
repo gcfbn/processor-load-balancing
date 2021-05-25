@@ -26,25 +26,7 @@ public class StrategyTwo implements Algorithm {
 
         for (int currentTime = 1; currentTime <= maxTime; currentTime++) {
 
-            ProcessExecuter.execute(cpus);
-
-            for (ProcessSender sender : processes) {
-
-                if (sender.getFrequency() % currentTime == 0) {
-                    Process currentProcess = sender.sendProcess();
-
-                    tryToExecuteProcess(currentProcess, cpus, queue);
-                }
-            }
-
-            boolean tryToExecuteProcessFromQueue = true;
-            while (tryToExecuteProcessFromQueue) {
-                if (queue.isEmpty()) tryToExecuteProcessFromQueue = false;
-                else {
-                    Process currentProcess = queue.poll();
-                    tryToExecuteProcessFromQueue = tryToExecuteProcess(currentProcess, cpus, queue);
-                }
-            }
+            serviceProcesses(cpus, processes, queue, currentTime);
 
             for (CPU cpu : cpus) {
                 cpu.getLoadsInTime()[currentTime - 1] = cpu.getLoad();
@@ -58,6 +40,10 @@ public class StrategyTwo implements Algorithm {
         }
 
         return ResultsCalculator.calculate(loads, questions, migrations);
+    }
+
+    private void serviceProcesses(ArrayList<CPU> cpus, ArrayList<ProcessSender> processes, Queue<Process> queue, int currentTime) {
+        ProcessService.service(this, cpus, processes, queue, currentTime);
     }
 
     public boolean tryToExecuteProcess(Process currentProcess, ArrayList<CPU> cpus, Queue<Process> queue) {
@@ -99,7 +85,7 @@ public class StrategyTwo implements Algorithm {
             }
         }
 
-        if (!foundCPU){
+        if (!foundCPU) {
             queue.add(currentProcess);
             return false;
         }
