@@ -8,23 +8,32 @@ import java.util.Random;
 
 public class ProcessGenerator {
 
-    private final static int MIN_FREQUENCY = 5;
-    private final static int MAX_FREQUENCY = 10;
-    private final static int MAX_LOAD = 5;
-    private final static int MIN_DURATION = 1;
-    private final static int MAX_DURATION = 4;
-    private final static int NUMBER_OF_DIFFERENT_PROCESSES = 40;
+    private final int minFrequency;
+    private final int maxFrequency;
+    private final int maxLoad;
+    private final int minDuration;
+    private final int maxDuration;
+    private final int numberOfDifferentProcesses;
 
-    public static ArrayList<ProcessSender> generateData(ArrayList<CPU> cpus) {
+    public ProcessGenerator(int minFrequency, int maxFrequency, int maxLoad, int minDuration, int maxDuration, int numberOfDifferentProcesses) {
+        this.minFrequency = minFrequency;
+        this.maxFrequency = maxFrequency;
+        this.maxLoad = maxLoad;
+        this.minDuration = minDuration;
+        this.maxDuration = maxDuration;
+        this.numberOfDifferentProcesses = numberOfDifferentProcesses;
+    }
+
+    public ArrayList<ProcessSender> generateData(ArrayList<CPU> cpus) {
 
         Random randomGenerator = new Random();
         ArrayList<ProcessSender> data = new ArrayList<>();
 
-        for (int i = 0; i < NUMBER_OF_DIFFERENT_PROCESSES; i++) {
+        for (int i = 0; i < numberOfDifferentProcesses; i++) {
 
-            int frequency = randomGenerator.nextInt(MAX_FREQUENCY - MIN_FREQUENCY) + MIN_FREQUENCY;
-            int load = randomGenerator.nextInt(MAX_LOAD) + 1;
-            int duration = randomGenerator.nextInt(MAX_DURATION - MIN_DURATION) + 1;
+            int frequency = randomGenerator.nextInt(maxFrequency - minFrequency) + minFrequency;
+            int load = randomGenerator.nextInt(maxLoad) + 1;
+            int duration = randomGenerator.nextInt(maxDuration - minDuration) + 1;
             CPU chosenCPU = cpus.get(randomGenerator.nextInt(cpus.size()));
 
             data.add(new ProcessSender(frequency, load, duration, chosenCPU));

@@ -16,6 +16,13 @@ public class TestClass {
     private static final int NUMBER_OF_CPUS = 50;
     private static final int MAX_TIME = 10000;
 
+    private static final int MIN_FREQUENCY = 3;
+    private static final int MAX_FREQUENCY = 10;
+    private static final int MAX_SINGLE_LOAD = 20;
+    private static final int MIN_DURATION = 10;
+    private static final int MAX_DURATION = 50;
+    private static final int NUMBER_OF_PROCESSES = 4500;
+
     private static final int PARAMETER_P = 40;
     private static final int PARAMETER_Z = 3;
     private static final int PARAMETER_R = 15;
@@ -25,11 +32,14 @@ public class TestClass {
 
         ArrayList<CPU> cpus = new ArrayList<>();
 
-        for (int i=0; i<NUMBER_OF_CPUS; i++){
+        for (int i = 0; i < NUMBER_OF_CPUS; i++) {
             cpus.add(new CPU(MAX_TIME));
         }
 
-        ArrayList<ProcessSender> senders = ProcessGenerator.generateData(cpus);
+        var processGenerator =
+                new ProcessGenerator(MIN_FREQUENCY, MAX_FREQUENCY, MAX_SINGLE_LOAD, MIN_DURATION, MAX_DURATION, NUMBER_OF_PROCESSES);
+
+        ArrayList<ProcessSender> senders = processGenerator.generateData(cpus);
 
         Algorithm algorithm;
         Results results;
@@ -46,7 +56,7 @@ public class TestClass {
         System.out.println();
 
         algorithm = new StrategyTwo(PARAMETER_P);
-        for (CPU cpu : cpus){
+        for (CPU cpu : cpus) {
             cpu.clearLoad();
             cpu.clearProcesses();
         }
@@ -62,7 +72,7 @@ public class TestClass {
         System.out.println();
 
         algorithm = new StrategyThree(PARAMETER_P, PARAMETER_R, STRAT_THREE_TRIES);
-        for (CPU cpu : cpus){
+        for (CPU cpu : cpus) {
             cpu.clearLoad();
             cpu.clearProcesses();
         }
