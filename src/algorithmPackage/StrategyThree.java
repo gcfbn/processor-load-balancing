@@ -99,7 +99,7 @@ public class StrategyThree implements Algorithm {
         return ResultsCalculator.calculate(loads, questions, migrations);
     }
 
-    private boolean tryToExecuteProcess(Process currentProcess, ArrayList<CPU> cpus, Queue<Process> queue) {
+    public boolean tryToExecuteProcess(Process currentProcess, ArrayList<CPU> cpus, Queue<Process> queue) {
 
 
         if (currentProcess.getCurrentCPU().getLoad() < MAX_LOAD_MIGRATION) {

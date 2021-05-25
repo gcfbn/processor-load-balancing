@@ -62,7 +62,7 @@ public class StrategyOne implements Algorithm {
         return ResultsCalculator.calculate(loads, questions, migrations);
     }
 
-    private boolean tryToExecuteProcess(Process currentProcess, ArrayList<CPU> cpus, Queue<Process> queue) {
+    public boolean tryToExecuteProcess(Process currentProcess, ArrayList<CPU> cpus, Queue<Process> queue) {
 
         int attemptsDone = 0;
         boolean foundCPU = false;
