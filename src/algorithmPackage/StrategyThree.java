@@ -22,6 +22,8 @@ public class StrategyThree implements Algorithm {
 
     Random randomGenerator = new Random();
 
+    private final StrategyTwo strategyTwo = new StrategyTwo();
+
     public Results executeAlgorithm(ArrayList<CPU> cpus, ArrayList<ProcessSender> processes, int maxTime) {
 
         Queue<Process> queue = new LinkedList<>();
@@ -83,48 +85,6 @@ public class StrategyThree implements Algorithm {
 
     public boolean tryToExecuteProcess(Process currentProcess, ArrayList<CPU> cpus, Queue<Process> queue) {
 
-
-        if (currentProcess.getCurrentCPU().getLoad() < MAX_LOAD_MIGRATION) {
-            CPU chosenCpu = currentProcess.getCurrentCPU();
-
-            chosenCpu.getProcesses().add(currentProcess);
-            chosenCpu.setLoad(chosenCpu.getLoad() + currentProcess.getLoad());
-
-            return true;
-        }
-
-        boolean[] attempedCpus = new boolean[cpus.size()];
-        int attemptsDone = 0;
-        boolean foundCPU = false;
-
-        while (attemptsDone < cpus.size() && !foundCPU) {
-            int randomIndex;
-
-            do {
-                randomIndex = randomGenerator.nextInt(cpus.size());
-            } while (attempedCpus[randomIndex]);
-
-            CPU randomCPU = cpus.get(randomIndex);
-            attempedCpus[randomIndex] = true;
-
-            attemptsDone++;
-            questions++;
-
-            if (randomCPU.getLoad() < MAX_LOAD_MIGRATION) {
-                foundCPU = true;
-                randomCPU.getProcesses().add(currentProcess);
-                randomCPU.setLoad(randomCPU.getLoad() + currentProcess.getLoad());
-                currentProcess.setCurrentCPU(randomCPU);
-
-                migrations++;
-            }
-        }
-
-        if (!foundCPU) {
-            queue.add(currentProcess);
-            return false;
-        }
-
-        return true;
+        return strategyTwo.tryToExecuteProcess(currentProcess, cpus, queue);
     }
 }
