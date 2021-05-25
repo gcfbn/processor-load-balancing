@@ -13,13 +13,18 @@ import java.util.Random;
 
 public class StrategyOne implements Algorithm {
 
-    private final static int MAX_LOAD_MIGRATION = 40;
-    private final static int ATTEMPTS = 5;
+    private final int parameterP;
+    private final int parameterZ;
 
     private int questions = 0;
     private int migrations = 0;
 
     private final Random randomGenerator = new Random();
+
+    public StrategyOne(int parameterP, int parameterZ) {
+        this.parameterP = parameterP;
+        this.parameterZ = parameterZ;
+    }
 
     @Override
     public Results executeAlgorithm(ArrayList<CPU> cpus, ArrayList<ProcessSender> processes, int maxTime) {
@@ -49,14 +54,14 @@ public class StrategyOne implements Algorithm {
         int attemptsDone = 0;
         boolean foundCPU = false;
 
-        while (attemptsDone < ATTEMPTS && !foundCPU) {
+        while (attemptsDone < parameterZ && !foundCPU) {
             int randomIndex = randomGenerator.nextInt(cpus.size());
             CPU randomCPU = cpus.get(randomIndex);
 
             attemptsDone++;
             questions++;
 
-            if (randomCPU.getLoad() < MAX_LOAD_MIGRATION) {
+            if (randomCPU.getLoad() < parameterP) {
                 foundCPU = true;
                 randomCPU.getProcesses().add(currentProcess);
                 randomCPU.setLoad(randomCPU.getLoad() + currentProcess.getLoad());

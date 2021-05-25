@@ -13,16 +13,23 @@ import java.util.Random;
 
 public class StrategyThree implements Algorithm {
 
-    private final static int MAX_LOAD_MIGRATION = 40;
-    private final static int MAX_LOAD_DIVIDING_JOB = 15;
-    private final static int DIVIDE_JOB_TRIES = 5;
+    private final int parameterP;
+    private final int parameterR;
+    private final int maxTries;
 
     private int questions = 0;
     private int migrations = 0;
 
     Random randomGenerator = new Random();
 
-    private final StrategyTwo strategyTwo = new StrategyTwo();
+    private final StrategyTwo strategyTwo;
+
+    public StrategyThree(int parameterP, int parameterR, int maxTries) {
+        this.parameterP = parameterP;
+        this.parameterR = parameterR;
+        this.maxTries = maxTries;
+        this.strategyTwo = new StrategyTwo(parameterP);
+    }
 
     public Results executeAlgorithm(ArrayList<CPU> cpus, ArrayList<ProcessSender> processes, int maxTime) {
 
@@ -35,17 +42,17 @@ public class StrategyThree implements Algorithm {
             // all this shit goes here
             for (CPU cpu : cpus) {
 
-                if (cpu.getLoad() < MAX_LOAD_DIVIDING_JOB) {
+                if (cpu.getLoad() < parameterR) {
                     int tries = 0;
                     boolean foundCPU = false;
-                    while (tries < DIVIDE_JOB_TRIES && !foundCPU) {
+                    while (tries < maxTries && !foundCPU) {
                         int randomIndex = randomGenerator.nextInt(cpus.size());
                         CPU randomCPU = cpus.get(randomIndex);
 
                         tries++;
                         questions++;
 
-                        if (randomCPU.getLoad() > MAX_LOAD_MIGRATION) {
+                        if (randomCPU.getLoad() > parameterP) {
                             foundCPU = true;
                             int halfOfLoad = randomCPU.getLoad() / 2;
                             int movedLoad = 0;

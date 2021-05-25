@@ -13,9 +13,13 @@ import java.util.Random;
 
 public class StrategyTwo implements Algorithm {
 
-    private final static int MAX_LOAD_MIGRATION = 40;
+    private final int parameterP;
     private int questions = 0;
     private int migrations = 0;
+
+    public StrategyTwo(int parameterP) {
+        this.parameterP = parameterP;
+    }
 
     private final Random randomGenerator = new Random();
 
@@ -49,7 +53,7 @@ public class StrategyTwo implements Algorithm {
     public boolean tryToExecuteProcess(Process currentProcess, ArrayList<CPU> cpus, Queue<Process> queue) {
 
 
-        if (currentProcess.getCurrentCPU().getLoad() < MAX_LOAD_MIGRATION) {
+        if (currentProcess.getCurrentCPU().getLoad() < parameterP) {
             CPU chosenCpu = currentProcess.getCurrentCPU();
 
             chosenCpu.getProcesses().add(currentProcess);
@@ -75,7 +79,7 @@ public class StrategyTwo implements Algorithm {
             attemptsDone++;
             questions++;
 
-            if (randomCPU.getLoad() < MAX_LOAD_MIGRATION) {
+            if (randomCPU.getLoad() < parameterP) {
                 foundCPU = true;
                 randomCPU.getProcesses().add(currentProcess);
                 randomCPU.setLoad(randomCPU.getLoad() + currentProcess.getLoad());

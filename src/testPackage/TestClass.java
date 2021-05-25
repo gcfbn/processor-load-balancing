@@ -16,6 +16,11 @@ public class TestClass {
     private static final int NUMBER_OF_CPUS = 50;
     private static final int MAX_TIME = 10000;
 
+    private static final int PARAMETER_P = 40;
+    private static final int PARAMETER_Z = 3;
+    private static final int PARAMETER_R = 15;
+    private static final int STRAT_THREE_TRIES = 5;
+
     public static void main(String[] args) {
 
         ArrayList<CPU> cpus = new ArrayList<>();
@@ -29,7 +34,7 @@ public class TestClass {
         Algorithm algorithm;
         Results results;
 
-        algorithm = new StrategyOne();
+        algorithm = new StrategyOne(PARAMETER_P, PARAMETER_Z);
         results = algorithm.executeAlgorithm(cpus, senders, MAX_TIME);
 
         System.out.println("Strategia 1:");
@@ -40,7 +45,7 @@ public class TestClass {
 
         System.out.println();
 
-        algorithm = new StrategyTwo();
+        algorithm = new StrategyTwo(PARAMETER_P);
         for (CPU cpu : cpus){
             cpu.clearLoad();
             cpu.clearProcesses();
@@ -56,7 +61,7 @@ public class TestClass {
 
         System.out.println();
 
-        algorithm = new StrategyThree();
+        algorithm = new StrategyThree(PARAMETER_P, PARAMETER_R, STRAT_THREE_TRIES);
         for (CPU cpu : cpus){
             cpu.clearLoad();
             cpu.clearProcesses();
